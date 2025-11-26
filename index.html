@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Transitievergoeding Calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#007AFF">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-blobs">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <main class="container">
+        <div class="card">
+            <header class="card-header">
+                <h1>Transitievergoeding</h1>
+                <p>Bereken eenvoudig de wettelijke vergoeding (2024)</p>
+            </header>
+
+            <form id="calculator-form">
+                <div class="form-group">
+                    <label for="salary">Bruto maandsalaris inclusief vaste toeslagen</label>
+                    <div class="input-wrapper">
+                        <span class="currency-symbol">€</span>
+                        <input type="number" id="salary" name="salary" placeholder="0,00" min="0" step="0.01" required>
+                    </div>
+                    <small class="hint">Inclusief vakantiegeld, eindejaarsuitkering, etc.</small>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="startDate">Datum in dienst</label>
+                        <input type="date" id="startDate" name="startDate" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="endDate">Datum uit dienst</label>
+                        <input type="date" id="endDate" name="endDate" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-calculate">Bereken Vergoeding</button>
+            </form>
+
+            <div id="result-container" class="result-container hidden">
+                <div class="result-header">Geschatte Transitievergoeding</div>
+                <div class="result-amount" id="result-amount">€ 0,00</div>
+                <div class="result-details">
+                    <div class="detail-item">
+                        <span>Dienstjaren:</span>
+                        <span id="detail-years">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Resterende maanden:</span>
+                        <span id="detail-months">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Resterende dagen:</span>
+                        <span id="detail-days">0</span>
+                    </div>
+                    <div class="detail-item">
+                        <span>Rekenloon (p/m):</span>
+                        <span id="detail-salary">€ 0,00</span>
+                    </div>
+                </div>
+                <div id="warning-message" class="warning-message hidden"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./sw.js')
+                    .then(reg => console.log('Service Worker registered'))
+                    .catch(err => console.log('Service Worker registration failed: ', err));
+            });
+        }
+    </script>
+</body>
+
+</html>
